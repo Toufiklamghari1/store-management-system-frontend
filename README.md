@@ -4,7 +4,7 @@ A comprehensive retail management solution handling product inventory, sales tra
 
 # Back end code:
 
-    [](https://github.com/Toufiklamghari1/store-management-system-Backend.git)](https://github.com/Toufiklamghari1/store-management-system-Backend.git)
+    https://github.com/Toufiklamghari1/store-management-system-Backend.git
     
 ### Feature Breakdown
 
