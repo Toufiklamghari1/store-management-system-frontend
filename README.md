@@ -1,27 +1,80 @@
-# StockerFront
+# Store Management System
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.3.
+A comprehensive retail management solution handling product inventory, sales transactions, purchase orders, and credit tracking.
 
-## Development server
+# Back end code:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+    [](https://github.com/Toufiklamghari1/store-management-system-Backend.git)](https://github.com/Toufiklamghari1/store-management-system-Backend.git)
+    
+### Feature Breakdown
 
-## Code scaffolding
+    **- Dashboard**  
+        - Real-time business insights
+        - Key performance indicators
+        - Inventory Summary
+        - Sales/purchase trends
+        
+    **- Achats (Purchases)**  
+        - Supplier order management
+        - Purchase order creation
+        - Goods receipt processing
+        - Supplier account tracking
+        
+    **- Ventes (Sales)**  
+        - Point of Sale (POS) interface
+        - Sales order processing
+        - Customer invoice generation
+        - Sales history tracking
+        
+    **- Produits (Products)**  
+        - Product catalog management
+        - Stock level monitoring
+        - Category organization
+        - Product attributes management
+        
+    **- Retour (Returns)**  
+        - Return authorization processing
+        - Refund management
+        - Restocking procedures
+        - Return reason tracking
+        
+    **- Credits**  
+        - Customer credit accounts
+        - Payment tracking
+        - Credit limit enforcement
+        - Outstanding balance reports
+        
+    **- Security**
+        - JWT-based authentication
+        - Role-based access control
+        - CORS configuration
+        - Password encryption
+        
+    **- Reporting**
+        - PDF invoice generation (iText)
+        - Financial transaction records
+        - Product movement tracking
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Technology Stack
 
-## Build
+    - **Backend**
+      - Java 17
+      - Spring Boot 2.5.5
+      - Spring Security
+      - Spring Data JPA
+      - iText 7.x (PDF generation)
+      - MySQL Database
+      
+    - **Frontend**
+      - Angular 13
+      - Angular Material
+      - RxJS
+      - TypeScript
+      
+    - **Tools**
+      - Maven
+      - JWT Authentication
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## System Architecture
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+   
