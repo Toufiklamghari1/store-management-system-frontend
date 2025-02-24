@@ -1,0 +1,33 @@
+<div class="main-div">
+  <mat-card class="card">
+      <mat-card-title> Se connecter </mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+      <mat-card-content>
+          <form class="example-form" #loginform="ngForm" (submit)="onSubmit()" [formGroup]="formLogin">
+
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Utilisateur</mat-label>
+                <input type="text" name="username" matInput required ngModel formControlName="usernameId" placeholder="Uusername">
+              </mat-form-field>
+              <br/>
+              <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>mot de passe</mat-label>
+                  <input type="password" name="password" matInput ngModel formControlName="passwordId" placeholder="Password">
+              </mat-form-field>
+              <div class="example-button-row">
+                  <button mat-raised-button class="button" type="submit" color="primary">Login</button>
+                </div>
+            </form>
+            <br/>
+            <a  class="link">Forget Password ?</a>
+            <br/>
+            <br/>
+            <a  class="link">créer <span style="color: #1691e2;">un compte</span></a>
+      </mat-card-content>
+  </mat-card>
+
+</div>
+
+
+
+

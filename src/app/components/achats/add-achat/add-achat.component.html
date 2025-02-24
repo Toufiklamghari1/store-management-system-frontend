@@ -1,0 +1,362 @@
+<!-- <div class="container-fluid">
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <div style="display: flex; align-items: center;">
+          <h2 class="h2" style="margin: 0;">{{'Achat-title'| translate}}</h2>
+        </div>
+
+        <hr class="hr hr-blurry" />
+
+        <app-detail-fournisseur
+          [fournisseurs]="fournisseurs"
+          (fournisseurSelected)="onFournisseurSelected($event)"
+          (newFournisseurToSave)="onSaveNewFournisseur($event)"
+          (viewSelected)="onViewNewFournisseurSelected($event)"
+        >
+        </app-detail-fournisseur>
+      </div>
+    </div>
+    <div class="card" *ngIf="fournisseurSelected && !newFournisseurView">
+      <div class="card-body">
+        <form [formGroup]="factureForm">
+          <div class="row">
+            <div class="form-group col-6 mt-3">
+              <label for="adresse">{{ "total-facture" | translate }}</label>
+              <label id="adresse" class="form-control">{{ getTotal() }}</label>
+            </div>
+            <div class="form-group col-6 mt-3">
+              <i
+                class="fa fa-asterisk"
+                style="font-size: 6px; color: red; padding-right: 4px"
+              ></i>
+              <label for="dateAchat"> {{ "date-achat" | translate }}</label>
+              <input
+                type="date"
+                (change)="dateSelected($event)"
+                class="form-control"
+                [ngClass]="{ 'date-invalid': dateInvalid }"
+                formControlName="dateAchat"
+                id="dateAchat"
+              />
+              <mat-error *ngIf="dateInvalid">
+                {{ "obligatoiry-field" | translate }}
+              </mat-error>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card" *ngIf="fournisseurSelected && !newFournisseurView">
+      <div class="card-body">
+        <button
+          class="btn btn-primary btn-sm mr-1"
+          style="position: relative; left: -15px"
+          (click)="openDialog()"
+        >
+          <i class="fa fa-plus"></i> {{ "Button.Add-New-Product" | translate }}
+        </button>
+        <div class="row mb-4 mt-2">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="col-10">{{ "Table.Id" | translate }}</th>
+                <th class="col-40">{{ "Table.Product" | translate }}</th>
+                <th class="col-15">{{ "Table.qantity" | translate }}</th>
+                <th class="col-15">{{ "Table.Price" | translate }}</th>
+                <th class="col-20">{{ "Table.Cat" | translate }}</th>
+                <th class="col-10">{{ "Table.action" | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let achat of achatsTable; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td >
+                  <ng-select
+                     class="custom"
+                    [items]="produits"
+                    [multiple]="false"
+                    bindLabel="libelle"
+                    [selectableGroup]="true"
+                    [selectableGroupAsModel]="false"
+                    [closeOnSelect]="true"
+                    [(ngModel)]="achat.produit"
+                    (change)="onProduitSelected($event, i)"
+                  >
+                    <ng-template
+                      ng-option-tmp
+                      let-item="item"
+                      let-item$="item$"
+                      let-index="index"
+                    >
+                      <input
+                        id="item-{{ nom }}"
+                        type="checkbox"
+                        [ngModel]="item$.selected"
+                      />
+                      {{ item.libelle }}
+                    </ng-template>
+                  </ng-select>
+                </td>
+
+                <td class="bs-checkbox">
+                  <input
+                    type="number"
+                    [(ngModel)]="achat.nombre"
+                    min="1"
+                    class="form-control number-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    [(ngModel)]="achat.produit.prixUnitaire"
+                    min="0"
+                    class="form-control number-input"
+                  />
+                </td>
+                <td>
+                  <span class="badge badge-success">{{
+                    achatsTable[i]?.produit?.categorie?.description
+                  }}</span>
+                </td>
+                <td>
+                  <i class="bi bi-trash" (click)="supprimerLigne(i)"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card" *ngIf="!(fournisseurSelected && !newFournisseurView)">
+      <div class="card-body">
+        <div class="message-info">
+          <span *ngIf="newFournisseurView" class="badge badge-info">{{
+            "Add-fournisseur" | translate
+          }}</span>
+          <span *ngIf="!newFournisseurView" class="badge badge-info">{{
+            "Select-fournisseur" | translate
+          }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="text-center" *ngIf="fournisseurSelected && !newFournisseurView">
+      <button (click)="ajouterLigne()" class="btn btn-primary btn-sm mr-1">
+        {{ "Button.Add-New-Ligne" | translate }}
+      </button>
+      <button (click)="onSubmit()" class="btn btn-success btn-sm mr-1">
+        {{ "Button.save" | translate }}
+      </button>
+      <button (click)="onPrint()" class="btn btn-warning btn-sm mr-1">
+        {{ "Button.print" | translate }}
+      </button>
+    </div>
+  </div>
+</div> -->
+
+<div class="container-fluid">
+  <div class="main-content mt-0 mb-0">
+    <div class="row align-items-center title-border mt-0 mb-0">
+      <div class="d-flex justify-content-between align-items-center">
+        <i class="bi bi-arrow-left-circle"></i>
+        <h2 class="h2 ml-2">{{ "achat-title" | translate }}</h2>
+      </div>
+      <div class="col-auto ml-auto mt-0 mb-0">
+        <button class="btn btn-outline-primary btn-sm" (click)="openDialog()">
+          <i class="bi bi-cart-plus"></i>
+          {{ "Button.Add-New-Product" | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <app-detail-fournisseur
+          [fournisseurs]="fournisseurs"
+          (fournisseurSelected)="onFournisseurSelected($event)"
+          (newFournisseurToSave)="onSaveNewFournisseur($event)"
+          (viewSelected)="onViewNewFournisseurSelected($event)"
+        >
+        </app-detail-fournisseur>
+
+        <div  *ngIf="fournisseurSelected && !newFournisseurView">
+          <hr class="hr" />
+          <div>
+            <form [formGroup]="factureForm">
+              <div class="row">
+                <div class="form-group col-6 mt-3">
+                  <label for="adresse">{{ "total-facture" | translate }}</label>
+                  <label id="adresse" class="form-control">{{
+                    getTotal()
+                  }}</label>
+                </div>
+                <div class="form-group col-6 mt-3">
+                  <i
+                    class="fa fa-asterisk"
+                    style="font-size: 6px; color: red; padding-right: 4px"
+                  ></i>
+                  <label for="dateAchat"> {{ "date-achat" | translate }}</label>
+                  <input
+                    type="date"
+                    (change)="dateSelected($event)"
+                    class="form-control"
+                    [ngClass]="{ 'date-invalid': dateInvalid }"
+                    formControlName="dateAchat"
+                    id="dateAchat"
+                  />
+                  <mat-error *ngIf="dateInvalid">
+                    {{ "obligatoiry-field" | translate }}
+                  </mat-error>
+                </div>
+              </div>
+            </form>
+            <hr class="hr" />
+            <div class="form-group">
+              <i class="bi bi-plus-square-fill" (click)="ajouterLigne()">
+                {{ "Button.Add-New-Ligne" | translate }}</i
+              >
+            </div>
+            <div class="w-costum custom-table-container">
+              <mat-table [dataSource]="achatsDataSet">
+                <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef>{{
+                    "Table.Id" | translate
+                  }}</mat-header-cell>
+                  <mat-cell *matCellDef="let achat; let i = index">
+                    <p>{{ i + 1 }}</p>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="product">
+                  <mat-header-cell *matHeaderCellDef>
+                    {{ "Table.Product" | translate }}
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let achat">
+                    <ng-select
+                      class="custom-ng-select"
+                      [items]="produits"
+                      [multiple]="false"
+                      bindLabel="libelle"
+                      [selectableGroup]="true"
+                      [selectableGroupAsModel]="false"
+                      [closeOnSelect]="true"
+                      [(ngModel)]="achat.produit"
+                      (change)="onProduitSelected($event, i)"
+                      appendTo="body"
+                      [placeholder]="'Table.select-product' | translate"
+                    >
+                      <ng-template
+                        ng-option-tmp
+                        let-item="item"
+                        let-item$="item$"
+                        let-index="index"
+                      >
+                        <input
+                          placeholder="-- choose --"
+                          id="item-{{ nom }}"
+                          type="checkbox"
+                          [ngModel]="item$.selected"
+                        />
+                        {{ item.libelle }}
+                      </ng-template>
+                    </ng-select>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="quantity">
+                  <mat-header-cell *matHeaderCellDef>{{
+                    "Table.qantity" | translate
+                  }}</mat-header-cell>
+                  <mat-cell *matCellDef="let achat">
+                    <input
+                      type="number"
+                      [(ngModel)]="achat.nombre"
+                      min="1"
+                      class="form-control number-input"
+                    />
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="price">
+                  <mat-header-cell *matHeaderCellDef>{{
+                    "Table.Price" | translate
+                  }}</mat-header-cell>
+                  <mat-cell *matCellDef="let achat">
+                    <input
+                      *ngIf="achat.produit"
+                      type="number"
+                      [(ngModel)]="achat.produit.prixUnitaire"
+                      min="0"
+                      class="form-control number-input"
+                    />
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="category">
+                  <mat-header-cell *matHeaderCellDef>{{
+                    "Table.Cat" | translate
+                  }}</mat-header-cell>
+                  <mat-cell *matCellDef="let achat">
+                    <span class="badge badge-success" *ngIf="achat.produit">{{
+                      achat.produit.categorie.description
+                    }}</span>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                  <mat-header-cell *matHeaderCellDef>{{
+                    "Table.action" | translate
+                  }}</mat-header-cell>
+                  <mat-cell *matCellDef="let achat; let i = index">
+                    <i
+                      [ariaDisabled]="!achat.produit"
+                      class="bi bi-trash"
+                      (click)="supprimerLigne(i)"
+                    ></i>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                  *matHeaderRowDef="[
+                    'id',
+                    'product',
+                    'quantity',
+                    'price',
+                    'category',
+                    'action'
+                  ]"
+                ></mat-header-row>
+                <mat-row
+                  *matRowDef="
+                    let achat;
+                    columns: [
+                      'id',
+                      'product',
+                      'quantity',
+                      'price',
+                      'category',
+                      'action'
+                    ]
+                  "
+                ></mat-row>
+              </mat-table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="from-group text-center"
+          *ngIf="fournisseurSelected && !newFournisseurView"
+      >
+        <button (click)="onSubmit()" class="btn btn-success btn-sm mr-1">
+          <i class="bi bi-printer"></i> {{ "Button.save" | translate }}
+        </button>
+        <button (click)="onPrint()" class="btn btn-warning btn-sm mr-1">
+          <i class="bi bi-printer-fill"></i>
+          {{ "Button.print" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

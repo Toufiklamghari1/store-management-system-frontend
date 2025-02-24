@@ -1,0 +1,110 @@
+
+input[type="text"], select {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+
+.form-control.ng-select {
+  border: none;
+  padding: 0;
+}
+
+
+
+.card {
+  position: relative;
+  display: -webkit-box;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 0.9375rem 44px !important;
+}
+
+.badge{
+  color: white !important;
+  font-size:.80rem !important;
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+
+
+input.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+
+input.date-invalid {
+  border-color: red;
+}
+
+/* Border Color */
+.ng-select.ng-invalid.ng-touched .ng-select-container{
+  border-color: red;
+}
+/* Arrow Color */
+.ng-select.ng-invalid.ng-touched .ng-arrow-wrapper .ng-arrow{
+  border-color: red transparent transparent
+}
+/* Placeholder Color */
+.ng-select.ng-invalid.ng-touched .ng-select-container .ng-placeholder{
+  color: red;
+}
+
+.mat-error {
+  color: #f44336;
+  font-size: 10px;
+}
+
+
+.col-20 {
+  width: 30%;
+}
+
+.col-40 {
+  width: 40%;
+}
+
+.col-15 {
+  width: 15%;
+}
+
+.col-10 {
+  width: 8%;
+}
+
+.message-info {
+  display: flex;
+  justify-content: center;
+}
+
+.title-div{
+  margin-top: -7px !important;
+
+}
+.title-border{
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+h2 {
+  color: #261681;
+  font-weight: bold;
+  font-family: Montserrat,sans-serif;
+  padding-top: 17px;
+}
+
+.bi-arrow-left-circle {
+  color: #261681;
+  font-weight: bold;
+  font-size: 19px;
+}

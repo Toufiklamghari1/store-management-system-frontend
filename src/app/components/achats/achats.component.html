@@ -1,0 +1,160 @@
+<!--
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <h2 class="h2">{{ "Consultation-title" | translate }}</h2>
+        </div>
+        <button class="btn btn-primary btn-sm mr-1" (click)="onAddNewAchat()">
+          {{ "Button.Add-New-Achat" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="row mb-4 mt-2">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="col-10">{{ "Table.Ref" | translate }}</th>
+              <th class="col-15">{{ "Table.Fourni" | translate }}</th>
+              <th class="col-15">{{ "Table.Total_achat" | translate }}</th>
+              <th class="col-15">{{ "Table.Date_achat" | translate }}</th>
+              <th class="col-15">{{ "Table.action" | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let achat of achatsTable; let i = index">
+              <td>{{ achat.reference }}</td>
+              <td>
+                {{ achat.fournisseur }}
+              </td>
+              <td>
+                {{ achat.total }}
+              </td>
+              <td>
+                {{ achat.date }}
+              </td>
+              <td>
+                <i class="bi bi-pen" (click)="modifier()"></i>
+                <i class="bi bi-printer" (click)="print()"></i>
+                <i class="bi bi-eye" (click)="afficher()"></i>
+                <i class="bi bi-trash" (click)="supprimer()"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="container-fluid">
+    <div class="main-content mt-0 mb-0">
+      <div class="row align-items-center title-border mt-0 mb-0">
+        <div class="d-flex justify-content-between align-items-center">
+          <i class="bi bi-arrow-left-circle"></i>
+          <h2 class="h2 ml-2">{{ "Consultation-achat" | translate }}</h2>
+        </div>
+        <div class="col-auto ml-auto mt-0 mb-0">
+          <button class="btn btn btn-warning btn-sm" (click)="onAddNewAchat()">
+            <i class="bi bi-cart-plus"></i> {{ "Button.Add-New-Achat" | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="row my-0">
+            <div class="col-md-6 my-0 mt-0 mb-0">
+              <form>
+                <div class="form-group">
+                  <label for="text-input">{{"Details.fournisseur" | translate}} </label>
+                  <input type="text" class="form-control" id="text-input" />
+                </div>
+                <div class="form-group">
+                  <div class="form-group">
+                    <label for="text-input">{{"Details.ref-search" | translate }}</label>
+                    <input type="text" class="form-control" id="date-search" />
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm mr-1">
+                  <i class="bi bi-search"></i>
+                  {{"Button.search" | translate }}
+                </button>
+              </form>
+            </div>
+            <div class="col-md-6 my-0 mt-0 mb-0">
+              <div class="form-group">
+                <div class="form-group">
+                  <label for="text-input">{{"Details.date-achat" | translate }}</label>
+                  <input type="date" class="form-control" id="date-search" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-0 mb-0">
+        <div class="col-12 my-0">
+          <div class="w-100 custom-table-container">
+            <mat-table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="reference">
+                <mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header
+                  class="custom-table-header"
+                  >{{ "Table.Ref" | translate }}</mat-header-cell
+                >
+                <mat-cell *matCellDef="let achat">{{ achat.reference }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="fournisseur">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+                  "Table.fournisseur" | translate
+                }}</mat-header-cell>
+                <mat-cell *matCellDef="let achat">{{ achat.fournisseur }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="total">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+                  "Table.Total_achat" | translate
+                }}</mat-header-cell>
+                <mat-cell *matCellDef="let achat">{{ achat.total }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+                  "Table.Date_achat" | translate
+                }}</mat-header-cell>
+                <mat-cell *matCellDef="let achat">{{ achat.date }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>{{
+                  "Table.action" | translate
+                }}</mat-header-cell>
+                <mat-cell *matCellDef="let item; let i = index">
+                  <i class="bi bi-pen mr-3" (click)="modifier()"></i>
+                  <i class="bi bi-printer mr-3" (click)="print(i)"></i>
+                  <i class="bi bi-eye mr-3" (click)="afficher()"></i>
+                  <i class="bi bi-trash mr-3" (click)="supprimer()"></i>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row
+                *matHeaderRowDef="displayedColumns"
+              ></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+            <mat-paginator
+              [pageSizeOptions]="[5, 10, 20]"
+              [pageSize]="5"
+              [length]="achatsTable.length"
+            ></mat-paginator>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+

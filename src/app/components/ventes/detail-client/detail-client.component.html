@@ -1,0 +1,96 @@
+
+  <div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" id="customSwitches" [(ngModel)]="newClientView" (change)="onNewClientViewActivated($event)">
+    <label class="custom-control-label" for="customSwitches"> {{'New-client-title'| translate}}</label>
+  </div>
+<ng-container *ngIf="!newClientView">
+  <div class="row ">
+    <div class="col-6 mt-3">
+      <div class="form-group">
+        <i class="fa fa-asterisk" style="font-size:6px;color:red; padding-right: 4px;"></i>
+        <label for="client">{{'Client-title'| translate}}</label>
+        <ng-select
+            [items]="clients"
+            [multiple]="false"
+            bindLabel="nom"
+            groupBy="selectedAllGroup"
+            [selectableGroup]="true"
+            [selectableGroupAsModel]="false"
+            [closeOnSelect]="false"
+            [(ngModel)]="fclientItemSelected"
+            [ngClass]="{'ng-invalid': (dateInvalid && !clientItemSelected) }"
+            (change)="onClientSelected($event)"
+            >
+            <ng-template
+                ng-optgroup-tmp
+                let-item="item"
+                let-item$="item$"
+                let-index="index"
+              >
+                <input id="item-{{ index }}" type="checkbox" [ngModel]="item$.selected" />
+                Select All
+              </ng-template>
+
+              <ng-template
+                ng-option-tmp
+                let-item="item"
+                let-item$="item$"
+                let-index="index"
+              >
+                <input id="item-{{ nom }}" type="checkbox" [ngModel]="item$.selected" />
+                {{ item.nom +' '+item.prenom}}
+              </ng-template>
+          </ng-select>
+          <mat-error *ngIf="dateInvalid && !clientItemSelected ">
+            {{'obligatoiry-field'|translate}}
+          </mat-error>
+        </div>
+
+    </div>
+    <div class=" col-6 mt-3">
+      <div class="form-group" *ngIf="clientItemSelected">
+        <label for="adresse">{{'Details.Adress'|translate}}</label>
+        <label id="adresse" class="form-control">{{clientItemSelected.adresse}}</label>
+      </div>
+      <div class="form-group" *ngIf="clientItemSelected">
+        <label for="telephone">{{'Details.Telephone'|translate}}</label>
+        <label id="telephone" class="form-control">{{clientItemSelected.numeroTele}}</label>
+      </div>
+    </div>
+</div>
+</ng-container>
+
+<ng-container *ngIf="newClientView">
+<div class="row ">
+  <div class="col-6 mt-3">
+    <div class="form-group">
+      <i class="fa fa-asterisk" style="font-size:6px;color:red; padding-right: 4px;"></i>
+      <label for="client"> {{'Details.Name'|translate}} </label>
+      <input type="text" name="clientNom" id="clientNom" [(ngModel)]="clientNom" min="1" class="form-control ">
+    </div>
+    <div class="form-group">
+      <i class="fa fa-asterisk" style="font-size:6px;color:red; padding-right: 4px;"></i>
+      <label for="client"> {{'Details.Last-Name'|translate}}</label>
+      <input type="text" name="clientPrenom" id="clientPrenom" [(ngModel)]="clientPrenom" min="1" class="form-control ">
+    </div>
+  </div>
+  <div class=" col-6 mt-3">
+    <div class="form-group">
+      <label for="adresse">{{'Details.Adress'|translate}}</label>
+      <input type="text" name="clientAdress" id="clientAdress" [(ngModel)]="clientAdress" min="1" class="form-control  ">
+    </div>
+    <div class="form-group" >
+      <label for="telephone">{{'Details.Telephone'|translate}}</label>
+      <input type="number" name="clientTele" id="clientTele" [(ngModel)]="clientTele" min="1" class="form-control  ">
+    </div>
+  </div>
+</div>
+<div class="text-center">
+<button (click)="onSaveNewClient()" class="btn btn-success btn-sm mr-1">
+  {{'Button.save'|translate}}
+</button>
+<button (click)="onCancel()" class="btn btn-secondary btn-sm mr-1">
+  {{ "Button.cancel" | translate }}
+</button>
+</div>
+</ng-container>

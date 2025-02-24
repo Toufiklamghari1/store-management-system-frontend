@@ -1,0 +1,97 @@
+<div>
+  <ng-container *ngIf="!creditToModify">
+    <ng-container *ngIf="isClient">
+      <h2 class="h2">{{ "add-Credit-client-title" | translate }}</h2>
+    </ng-container>
+    <ng-container *ngIf="!isClient">
+      <h2 class="h2">{{ "add-Credit-fournisseur-title" | translate }}</h2>
+    </ng-container>
+    <hr class="hr hr-blurry" />
+
+    <ng-container *ngIf="!isClient">
+      <app-detail-fournisseur [fournisseurs]="fournisseurs" (fournisseurSelected)="onFournisseurSelected($event)"
+        (newFournisseurToSave)="onSaveNewFournisseur($event)" (viewSelected)="onViewNewFournisseurSelected($event)">
+      </app-detail-fournisseur>
+    </ng-container>
+    <ng-container *ngIf="isClient">
+      <app-detail-client [clients]="clients" (clientSelected)="onClientSelected($event)"
+        (newClientToSave)="onSaveNewClient($event)" (viewSelected)="onViewNewClientSelected($event)">
+      </app-detail-client>
+    </ng-container>
+    <hr class="hr hr-blurry" />
+  <ng-container *ngIf="(fournisseurSelected && !newFournisseurView) || (clientSelected && !newClientView)">
+    <div class="card" >
+      <div class="card-body">
+        <form [formGroup]="creditForm">
+          <div class="row">
+            <div class="form-group col-6 mt-3">
+              <i
+                class="fa fa-asterisk"
+                style="font-size: 6px; color: red; padding-right: 4px"
+              ></i>
+              <label for="amount"> {{ "amount-credit" | translate }}</label>
+              <input
+                type="number"
+                (change)="amountEntred($event)"
+                class="form-control"
+                formControlName="amount"
+                id="amount"
+              />
+              <mat-error *ngIf="amountInvalid">
+                {{ "obligatoiry-field" | translate }}
+              </mat-error>
+            </div>
+            <div class="form-group col-6 mt-3">
+              <i
+                class="fa fa-asterisk"
+                style="font-size: 6px; color: red; padding-right: 4px"
+              ></i>
+              <label for="dateCredit"> {{ "date-credit" | translate }}</label>
+              <input
+                type="date"
+                (change)="dateSelected($event)"
+                class="form-control"
+                [ngClass]="{ 'date-invalid': dateInvalid }"
+                formControlName="dateCredit"
+                id="dateCredit"
+              />
+              <mat-error *ngIf="dateInvalid">
+                {{ "obligatoiry-field" | translate }}
+              </mat-error>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-container>
+    <hr class="hr hr-blurry" />
+
+    <div class="text-center">
+      <button class="btn btn-secondary btn-sm mr-1" (click)="onCancel()">
+        {{ "Button.cancel" | translate }}
+      </button>
+      <button class="btn btn-primary btn-sm" (click)="onSubmit()">
+        {{ "Button.save" | translate }}
+      </button>
+    </div>
+
+  </ng-container>
+  <ng-container *ngIf="creditToModify">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="h2" style="display: flex; justify-content: center">
+          {{ "Add-produit" | translate }}
+        </h2>
+
+        <div class="text-center">
+          <button class="btn btn-secondary btn-sm mr-1" (click)="onCancel()">
+            {{ "Button.cancel" | translate }}
+          </button>
+          <button class="btn btn-primary btn-sm" [disabled]="!produitToModify.libelle" (click)="onUpdateProduit()">
+            {{ "Button.save" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

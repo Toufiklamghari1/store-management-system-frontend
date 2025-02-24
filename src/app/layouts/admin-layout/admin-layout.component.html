@@ -1,0 +1,32 @@
+<!-- <div >
+    <div class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="main-panel">
+        <app-navbar></app-navbar>
+        <app-loader></app-loader>
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
+    </div>
+</div> -->
+<div class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
+  <app-sidebar></app-sidebar>
+</div>
+<div class="main-panel">
+  <ng-container>
+    <app-banner
+    ></app-banner>
+  </ng-container>
+  <div class="content">
+    <div class="header">
+      <app-navbar></app-navbar>
+    </div>
+
+    <app-loader></app-loader>
+    <router-outlet></router-outlet>
+  </div>
+  <div class="footer">
+    <app-footer></app-footer>
+  </div>
+</div>
+

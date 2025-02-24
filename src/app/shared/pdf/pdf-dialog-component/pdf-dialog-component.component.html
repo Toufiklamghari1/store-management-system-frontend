@@ -1,0 +1,20 @@
+<div class="popup mt-0 mb-0">
+  <div class="row align-items-center title-border mt-0 mb-0">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="h2 ml-2">{{ facture }}</h2>
+    </div>
+    <div class="col-auto ml-auto mt-0 mb-0">
+      <button class="btn btn-outline-primary btn-sm" (click)="closeDialog()">
+        <i class="bi bi-door-open"></i>
+        {{ "Button.close" | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <ngx-extended-pdf-viewer
+      [src]="data.pdfUrl"
+      [height]="'calc(100vh - 200px)'"
+      [useBrowserLocale]="true"
+    ></ngx-extended-pdf-viewer>
+  </div>
+</div>

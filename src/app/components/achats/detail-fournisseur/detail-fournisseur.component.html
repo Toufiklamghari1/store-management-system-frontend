@@ -1,0 +1,91 @@
+
+  <div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" id="customSwitches" [(ngModel)]="newFournisseurView" (change)="onNewFournisseurViewActivated($event)">
+    <label class="custom-control-label" for="customSwitches"> {{'New-fournisseur-title'| translate}}</label>
+  </div>
+<ng-container *ngIf="!newFournisseurView">
+  <div class="row ">
+    <div class="col-6 mt-3">
+      <div class="form-group">
+        <i class="fa fa-asterisk" style="font-size:6px;color:red; padding-right: 4px;"></i>
+        <label for="fournisseur">{{'Fournisseur-title'| translate}}</label>
+        <ng-select
+            [items]="fournisseurs"
+            [multiple]="false"
+            bindLabel="nom"
+            groupBy="selectedAllGroup"
+            [selectableGroup]="true"
+            [selectableGroupAsModel]="false"
+            [closeOnSelect]="false"
+            [(ngModel)]="fournisseurItemSelected"
+            [ngClass]="{'ng-invalid': (dateInvalid && !fournisseurItemSelected) }"
+            (change)="onFournisseurSelected($event)"
+            >
+            <ng-template
+                ng-optgroup-tmp
+                let-item="item"
+                let-item$="item$"
+                let-index="index"
+              >
+                <input id="item-{{ index }}" type="checkbox" [ngModel]="item$.selected" />
+                Select All
+              </ng-template>
+
+              <ng-template
+                ng-option-tmp
+                let-item="item"
+                let-item$="item$"
+                let-index="index"
+              >
+                <input id="item-{{ nom }}" type="checkbox" [ngModel]="item$.selected" />
+                {{ item.nom +' '+item.prenom}}
+              </ng-template>
+          </ng-select>
+          <mat-error *ngIf="dateInvalid && !fournisseurItemSelected ">
+            {{'obligatoiry-field'|translate}}
+          </mat-error>
+        </div>
+
+    </div>
+    <div class=" col-6 mt-3">
+      <div class="form-group" *ngIf="fournisseurItemSelected">
+        <label for="adresse">{{'Details.Adress'|translate}}</label>
+        <label id="adresse" class="form-control">{{fournisseurItemSelected.adresse}}</label>
+      </div>
+      <div class="form-group" *ngIf="fournisseurItemSelected">
+        <label for="telephone">{{'Details.Telephone'|translate}}</label>
+        <label id="telephone" class="form-control">{{fournisseurItemSelected.numeroTele}}</label>
+      </div>
+    </div>
+</div>
+</ng-container>
+
+<ng-container *ngIf="newFournisseurView">
+<div class="row ">
+  <div class="col-6 mt-3">
+    <div class="form-group">
+      <i class="fa fa-asterisk" style="font-size:6px;color:red; padding-right: 4px;"></i>
+      <label for="fournisseur"> {{'Details.Name'|translate}} </label>
+      <input type="text" name="fournisseurNom" id="fournisseurNom" [(ngModel)]="fournisseurNom" min="1" class="form-control ">
+    </div>
+    <div class="form-group">
+      <i class="fa fa-asterisk" style="font-size:6px;color:red; padding-right: 4px;"></i>
+      <label for="fournisseur"> {{'Details.Last-Name'|translate}}</label>
+      <input type="text" name="fournisseurPrenom" id="fournisseurPrenom" [(ngModel)]="fournisseurPrenom" min="1" class="form-control ">
+    </div>
+  </div>
+  <div class=" col-6 mt-3">
+    <div class="form-group">
+      <label for="adresse">{{'Details.Adress'|translate}}</label>
+      <input type="text" name="fournisseurAdress" id="fournisseurAdress" [(ngModel)]="fournisseurAdress" min="1" class="form-control  ">
+    </div>
+    <div class="form-group" >
+      <label for="telephone">{{'Details.Telephone'|translate}}</label>
+      <input type="number" name="fournisseurTele" id="fournisseurTele" [(ngModel)]="fournisseurTele" min="1" class="form-control  ">
+    </div>
+  </div>
+</div>
+<div class="text-center">
+<button (click)="onSaveNewFournisseur()" class="btn btn-success btn-sm">{{'Button.save'|translate}}</button>
+</div>
+</ng-container>

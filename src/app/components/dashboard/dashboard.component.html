@@ -1,0 +1,23 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <app-responsive-carousel></app-responsive-carousel>
+    <div class="row">
+      <div class="col-6 dashboard-card-content">
+        <div class="card ">
+          <app-chart-produit
+            [data]="data"
+            [colorScheme]="colorScheme"
+          ></app-chart-produit>
+        </div>
+      </div>
+      <div class="col-6 dashboard-card-content">
+        <div class="card ">
+          <app-chart-produit
+            [data]="data"
+            [colorScheme]="colorScheme"
+          ></app-chart-produit>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

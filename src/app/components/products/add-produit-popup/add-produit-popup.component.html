@@ -1,0 +1,211 @@
+<div class="popup">
+  <ng-container *ngIf="!produitToModify">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="h2" style="display: flex; justify-content: center">
+          {{ "Add-produit" | translate }}
+        </h2>
+        <div class="form-group">
+          <i
+            class="fa fa-asterisk"
+            style="font-size: 6px; color: red; padding-right: 4px"
+          ></i>
+          <label for="libelle">{{ "Details.Desc-field" | translate }}</label>
+          <input
+            type="text"
+            id="libelle"
+            class="form-control"
+            [(ngModel)]="nouveauProduit.libelle"
+            [ngModelOptions]="{ standalone: true }"
+            name="libelle"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="prixUnitaire">{{
+            "Details.Price-field" | translate
+          }}</label>
+          <input
+            type="number"
+            id="prixUnitaire"
+            class="form-control"
+            [readOnly]="!nouveauProduit.libelle"
+            [(ngModel)]="nouveauProduit.prixUnitaire"
+            [ngModelOptions]="{ standalone: true }"
+            name="prixUnitaire"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="nbrArticles">{{
+            "Details.Qantity-field" | translate
+          }}</label>
+          <input
+            type="number"
+            id="nbrArticles"
+            class="form-control"
+            [readOnly]="!nouveauProduit.libelle"
+            [(ngModel)]="nouveauProduit.nbrArticles"
+            [ngModelOptions]="{ standalone: true }"
+            name="nbrArticles"
+          />
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label for="libelle"
+              >{{ "Details.Category-field" | translate }}
+            </label>
+            <ng-select
+              [items]="categories"
+              [multiple]="false"
+              bindLabel="description"
+              [selectableGroup]="true"
+              [selectableGroupAsModel]="false"
+              [multiple]="false"
+              [closeOnSelect]="true"
+              [(ngModel)]="categorieSelacted"
+              (change)="onCategorieSelected($event)"
+              required="!nouveauProduit.libelle"
+              [disabled]="!nouveauProduit.libelle"
+              [addTag]="onAddItem"
+            >
+              <ng-template
+                ng-option-tmp
+                let-item="item"
+                let-item$="item$"
+                let-index="index"
+              >
+                <input
+                  id="item-{{ nom }}"
+                  type="checkbox"
+                  [ngModel]="item$.selected"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                {{ item.description }}
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-secondary btn-sm mr-1" (click)="onCancel()">
+            {{ "Button.cancel" | translate }}
+          </button>
+          <button
+            class="btn btn-primary btn-sm"
+            [disabled]="
+              !nouveauProduit.libelle ||
+              (categorieSelacted === null && !newCatgorieView)
+            "
+            (click)="onSave()"
+          >
+            {{ "Button.save" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="produitToModify">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="h2" style="display: flex; justify-content: center">
+          {{ "Modify-produit" | translate }}
+        </h2>
+        <div class="form-group">
+          <i
+            class="fa fa-asterisk"
+            style="font-size: 6px; color: red; padding-right: 4px"
+          ></i>
+          <label for="libelle">{{ "Details.Desc-field" | translate }}</label>
+          <input
+            type="text"
+            id="libelle"
+            class="form-control"
+            [(ngModel)]="produitToModify.libelle"
+            [ngModelOptions]="{ standalone: true }"
+            name="libelle"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="prixUnitaire">{{
+            "Details.Price-field" | translate
+          }}</label>
+          <input
+            type="number"
+            id="prixUnitaire"
+            class="form-control"
+            [readOnly]="!produitToModify.libelle"
+            [(ngModel)]="produitToModify.prixUnitaire"
+            [ngModelOptions]="{ standalone: true }"
+            name="prixUnitaire"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="nbrArticles">{{
+            "Details.Qantity-field" | translate
+          }}</label>
+          <input
+            type="number"
+            id="nbrArticles"
+            class="form-control"
+            [readOnly]="!produitToModify.libelle"
+            [(ngModel)]="produitToModify.nbrArticles"
+            [ngModelOptions]="{ standalone: true }"
+            name="nbrArticles"
+          />
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label for="libelle"
+              >{{ "Details.Category-field" | translate }}
+            </label>
+            <ng-select
+              [items]="categories"
+              [multiple]="false"
+              bindLabel="description"
+              [selectableGroup]="true"
+              [selectableGroupAsModel]="false"
+              [multiple]="false"
+              [closeOnSelect]="true"
+              [(ngModel)]="produitToModify.categorie"
+              (change)="onCategorieSelected($event)"
+              required="!produitToModify.libelle"
+              [disabled]="!produitToModify.libelle"
+              [addTag]="onAddItem"
+            >
+              <ng-template
+                ng-option-tmp
+                let-item="item"
+                let-item$="item$"
+                let-index="index"
+              >
+                <input
+                  id="item-{{ nom }}"
+                  type="checkbox"
+                  [ngModel]="item$.selected"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                {{ item.description }}
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-secondary btn-sm mr-1" (click)="onCancel()">
+            {{ "Button.cancel" | translate }}
+          </button>
+          <button
+            class="btn btn-primary btn-sm"
+            [disabled]="!produitToModify.libelle"
+            (click)="onUpdateProduit()"
+          >
+            {{ "Button.save" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

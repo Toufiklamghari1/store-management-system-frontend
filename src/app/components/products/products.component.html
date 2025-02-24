@@ -1,0 +1,123 @@
+
+  <div class="container-fluid">
+    <div class="main-content mt-0 mb-0 ">
+      <div class="row align-items-center title-border mt-0 mb-0">
+        <div class="d-flex  justify-content-between align-items-center">
+          <i class="bi bi-arrow-left-circle"></i>
+          <h2 class="h2 ml-2">{{ "Consultation-produit" | translate }}</h2>
+        </div>
+        <div class="col-auto ml-auto mt-0 mb-0">
+          <button class="btn btn btn-warning  btn-sm" (click)="openDialog()">
+            {{ "Button.Add-New-Product" | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="row my-0">
+        <div class="col-md-6 my-0 mb-0">
+          <div class="card">
+            <div class="card-body">
+              <app-chart-produit
+                [data]="data"
+                [colorScheme]="colorScheme"
+                [view]="view"
+              ></app-chart-produit>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 my-0 mt-0 mb-0 ">
+          <div class="card">
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <label for="text-input">Produit : </label>
+                  <input type="text" class="form-control" id="text-input" />
+                </div>
+                <div class="form-group">
+                  <div class="form-group">
+                    <label for="text-input">Catégorie</label>
+                    <input type="text" class="form-control" id="text-input" />
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary mr-1">
+                  Recherche
+                </button>
+                <button type="button" class="btn btn-secondary mr-1">
+                  Cancel
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-0 mb-0">
+        <div class="col-12 my-0">
+          <div class="w-100 custom-table-container">
+            <mat-table
+              [dataSource]="dataSourceProduit"
+              matSort
+            >
+              <ng-container matColumnDef="reference">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="custom-table-header">{{
+                  "Table.Ref" | translate
+                }}</mat-header-cell>
+                <mat-cell *matCellDef="let produit">{{
+                  produit.reference
+                }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="libelle">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+                  "Table.Product" | translate
+                }}</mat-header-cell>
+                <mat-cell *matCellDef="let produit">{{
+                  produit.libelle
+                }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="nbrArticles">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+                  "Table.qantity" | translate
+                }}</mat-header-cell>
+                <mat-cell *matCellDef="let produit">{{
+                  produit.nbrArticles
+                }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="categorie">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>{{
+                  "Table.Cat" | translate
+                }}</mat-header-cell>
+                <mat-cell *matCellDef="let produit">{{
+                  produit.categorie.description
+                }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>{{
+                  "Table.action" | translate
+                }}</mat-header-cell>
+                <mat-cell *matCellDef="let produit">
+                  <i class="bi bi-eye" (click)="afficherDonnee(produit)"></i>
+                  <i class="bi bi-pen" (click)="modifierDonnee(produit)"></i>
+                  <i class="bi bi-trash" (click)="supprimerDonnee(produit)"></i>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row
+                *matHeaderRowDef="displayedColumns"
+              ></mat-header-row>
+              <mat-row
+                *matRowDef="let row; columns: displayedColumns"
+              ></mat-row>
+            </mat-table>
+            <mat-paginator
+              [pageSizeOptions]="[5, 10, 20]"
+              [pageSize]="5"
+              [length]="produitTable.length"
+            ></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

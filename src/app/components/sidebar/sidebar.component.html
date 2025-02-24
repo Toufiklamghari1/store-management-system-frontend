@@ -1,0 +1,31 @@
+<div class="logo">
+  <a href="/" class="simple-text item-p ">
+      <div class="logo-img">
+          <img src=""/>
+      </div>
+      Stock Management
+  </a>
+</div>
+
+<div class="sidebar-wrapper">
+<div *ngIf="isMobileMenu()">
+  <ul class="nav navbar-nav nav-mobile-menu navbar-transparent">
+      <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)">
+              <i class="material-icons item-p">logout</i>
+              <p>
+                  <span class="d-lg-none d-md-block item-p">se deconnecter</span>
+              </p>
+          </a>
+      </li>
+  </ul>
+</div>
+  <ul class="nav">
+      <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+          <a class="nav-link" [routerLink]="[menuItem.path]">
+              <i class="material-icons item-p">{{menuItem.icon}}</i>
+              <p class="item-p">{{menuItem.title}}</p>
+          </a>
+      </li>
+  </ul>
+</div>
