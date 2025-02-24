@@ -75,6 +75,5 @@ A comprehensive retail management solution handling product inventory, sales tra
       - Maven
       - JWT Authentication
 
-## System Architecture
 
    
